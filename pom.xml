@@ -79,11 +79,6 @@
             <version>2.3.0-jaxb-1.0.6</version>
         </dependency>
         <dependency>
-            <groupId>org.openjax.xml</groupId>
-            <artifactId>sax</artifactId>
-            <version>0.9.4</version>
-        </dependency>
-        <dependency>
             <groupId>javax.xml.parsers</groupId>
             <artifactId>jaxp-api</artifactId>
             <version>1.4.5</version>
