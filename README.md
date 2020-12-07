@@ -4,7 +4,7 @@
 
 ## Harjoitustyö 2 tehtävänanto suomeksi
 
-*[Tehtävänanto](https://gitlab.utu.fi/jarilehtogroup/ringersclock/-/blob/master/Tehtavananto.md)*
+*[Tehtävänanto](Tehtavananto.md)*
 
 ## Group work assignment 2 in  English
 
