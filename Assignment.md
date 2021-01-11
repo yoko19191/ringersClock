@@ -106,21 +106,20 @@ The weather service includes the following classes:
 `FMIWeatherService` should have a static method that will use the FMI API to fetch the current weather data and return the relevant information encapsulated as a `WeatherData` object.
 
 
-## Tehtävä 1. Suunnitteludokumentti
+## Assignment 1: Planning
+
+The first part of the assignment is creating a planning document. The purpose of this document is to help the student familiarize oneself with the topic and guide into a right direction. 
 
 Harjoitustyön ensimmäisen vaiheen on tarkoitus auttaa tutustumaan ongelmakenttään ja ohjata oikeaan tapaan toteuttaa ohjelmistoja. Tässä vaiheessa on tarpeellista käydä läpi huolella tehtävän suorittamiseen annettu ohjelma runko. Sen rakenteen ymmärtäminen antaa pohjan järkevälle toteutukselle.
 Perusteellinen suunnittelu myös nopeuttaa varsinaista ohjelmointityötä ja vähentää vakavien luokkahierarkian rakenteellisten virheiden mahdollisuutta.
 
-**Luokka- ja sekvenssikaavio ohjelman toiminnasta**
+**Class- and sequence diagram**
 
-Suunnitteludokumentin tulee sisältää sekä luokka- että sekvenssikaavio. 
+The planning document should include a class diagram as well as a sequence diagram
 
-Luokkakaavioon kuvataan, mitä luokkia ohjelmassa on ja mitkä niiden tehtävät ovat. Pohjana kaaviossa ovat olemassa olevat luokat ja sitä täydennetään omilla luokille. Luokkien kaikki metodeita ja muuttujia ei tarvitse kattavasti esittää, eikä käyttöliittymään kuuluvaa kontrolleria tarvitse käsitellä lainkaan. Ohjelman toiminnan kannalta tärkeät tallennettavat tiedot (luokkamuuttujat) ja luokan toiminteet (metodit) on listattava.
+The class diagram should include the classes required to implement the software and a brief description of the responsibilities for the classes. The provided classes work as a base and you should complete the diagram with your own classes. Note that **not** every method and variable should be described. The controller for graphical user interface (`fi.utu.tech.ringersClock.UI`) can be fully omitted from the diagram as well. Include the most important variables and methods and you should be good to go.
 
-Sekvenssikaaviossa esitetään, miten ohjelman toiminteiden suoritus etenee. Mitä tehdään, kuka tekee ja mitä viestejä liikkuu ovat tärkeitä asioita selvittää. Esimerkiksi jos käyttäjä lisää uuden herätyksen, miten suoritus etenee? Entä mitä tapahtuu, kun herätysaika koittaa? Sekvenssikaaviossa toimijat on syytä esittää luokkatasolla.
-
-
-
+The sequence diagram should show, how the program execution advances. Which component does what and what kind of messages are transmitted. For example; if the user creates a new wake up group, what happens? Then again, when it is the time to wake up; what happens? The sequence diagram should be presented as a class level diagram. Ie. the actors in the diagram are classes.
 
 ## Assignment 2: Implementing software
 
