@@ -8,8 +8,4 @@
 
 ## Group work assignment 2 in  English
 
-TBA
-
-<!---
-*[Assignment](https://gitlab.utu.fi/jarilehtogroup/ringersclock/-/blob/master/Assignment.md)*
--->
+*[Assignment in English](Assignment.md)*
