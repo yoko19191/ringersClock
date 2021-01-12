@@ -108,16 +108,15 @@ The weather service includes the following classes:
 
 ## Assignment 1: Planning
 
-The first part of the assignment is creating a planning document. The purpose of this document is to help the student familiarize oneself with the topic and guide into a right direction. 
+The first part of the assignment is creating a planning document. The purpose of this document is to help the student familiarize oneself with the topic and guide in the right direction. During this phase, it is good to go through the application template trying to understand the different components included. Understanding the template makes it easier to implement working final product.
 
-Harjoitustyön ensimmäisen vaiheen on tarkoitus auttaa tutustumaan ongelmakenttään ja ohjata oikeaan tapaan toteuttaa ohjelmistoja. Tässä vaiheessa on tarpeellista käydä läpi huolella tehtävän suorittamiseen annettu ohjelma runko. Sen rakenteen ymmärtäminen antaa pohjan järkevälle toteutukselle.
-Perusteellinen suunnittelu myös nopeuttaa varsinaista ohjelmointityötä ja vähentää vakavien luokkahierarkian rakenteellisten virheiden mahdollisuutta.
+A good planning will make implementation faster to work with and avoids designing invalid class hierarchies.
 
 **Class- and sequence diagram**
 
 The planning document should include a class diagram as well as a sequence diagram
 
-The class diagram should include the classes required to implement the software and a brief description of the responsibilities for the classes. The provided classes work as a base and you should complete the diagram with your own classes. Note that **not** every method and variable should be described. The controller for graphical user interface (`fi.utu.tech.ringersClock.UI`) can be fully omitted from the diagram as well. Include the most important variables and methods and you should be good to go.
+The class diagram should include the classes required to implement the software and a brief description of the responsibilities for the classes. The provided classes work as a base and you should complete the diagram with your own classes. Note that **not** every method and variable should be described. The controller for graphical user interface (`fi.utu.tech.ringersClock.UI`) can be fully omitted from the diagram as well. Include the most important instance variables and methods and you should be good to go.
 
 The sequence diagram should show, how the program execution advances. Which component does what and what kind of messages are transmitted. For example; if the user creates a new wake up group, what happens? Then again, when it is the time to wake up; what happens? The sequence diagram should be presented as a class level diagram. Ie. the actors in the diagram are classes.
 
