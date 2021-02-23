@@ -120,7 +120,7 @@ public class Gui_IO {
 		});
 	}
 
-	/*
+	/**
 	 * This method is run if the leader accepts the wake-up Now you have to wake up
 	 * the rest of the team
 	 * 
@@ -130,7 +130,7 @@ public class Gui_IO {
 		System.out.println("AlarmAll " + group.getName());
 	}
 
-	/*
+	/**
 	 * This method is run if the leader cancel the wake-up The alarm is cancelled
 	 * and should be removed from server
 	 * 
@@ -140,7 +140,7 @@ public class Gui_IO {
 		System.out.println("CancelAll " + group.getName());
 	}
 
-	/*
+	/**
 	 * This method is run when user pressed the create button Now the group with
 	 * wake-up time must be sent to server
 	 * 
@@ -150,7 +150,7 @@ public class Gui_IO {
 		System.out.println("Create New Group pressed, name: " + name + " Wake-up time: " + hour + ":" + minutes + " Rain allowed: " + norain + " Temperature over 0 deg: " + temp);
 	}
 
-	/*
+	/**
 	 * This method is run when user pressed the join button The info must be sent to
 	 * server
 	 * 
@@ -161,7 +161,7 @@ public class Gui_IO {
 		System.out.println("Join Group pressed" + group.getName());
 	}
 	
-	/*
+	/**
 	 * This method is run when user pressed the resign button The info must be sent to
 	 * server
 	 * 

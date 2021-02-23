@@ -12,11 +12,13 @@ public class WakeUpGroup implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private Integer ID;
+	private Alarm alarm;
 
-	public WakeUpGroup(Integer id, String name) {
+
+	public WakeUpGroup(String name,Alarm alarm) {
 		super();
-		this.ID = id;
 		this.name = name;
+		this.alarm = alarm;
 	}
 
 	public String getName() {
@@ -34,6 +36,8 @@ public class WakeUpGroup implements Serializable {
 	public void setID(Integer ID) {
 		this.ID = ID;
 	}
+
+	public Alarm getAlarm(){return this.alarm;}
 
 	@Override
 	public String toString() {

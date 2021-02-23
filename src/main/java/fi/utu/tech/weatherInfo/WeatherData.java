@@ -7,6 +7,9 @@ package fi.utu.tech.weatherInfo;
 
 public class WeatherData {
 
+	private boolean isRaining;
+	private double temperature;
+
 	/*
 	 * What kind of data is needed? What are the variable types. Define class
 	 * variables to hold the data
@@ -21,4 +24,16 @@ public class WeatherData {
 
 	}
 
+	public WeatherData(boolean isRaining,double temperature){
+		this.isRaining = isRaining;
+		this.temperature = temperature;
+	}
+
+	public boolean getIsRaining() {
+		return this.isRaining;
+	}
+
+	public double getTemperature() {
+		return this.temperature;
+	}
 }
