@@ -2,13 +2,14 @@ package fi.utu.tech.ringersClock.entities;
 
 import fi.utu.tech.weatherInfo.WeatherData;
 
+import java.io.Serializable;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 
-public class Alarm {
+public class Alarm implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private Instant targetInstant;
-
     private boolean isAllowRain;
     private boolean isAllowTempUnderZero;
 

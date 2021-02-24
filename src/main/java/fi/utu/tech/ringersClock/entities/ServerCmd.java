@@ -3,7 +3,7 @@ package fi.utu.tech.ringersClock.entities;
 import java.io.Serializable;
 
 public class ServerCmd <T extends Serializable> implements Serializable{
-
+    private static final long serialVersionUID = 1L;
     private SCMD cmd;
     private T payload;
 

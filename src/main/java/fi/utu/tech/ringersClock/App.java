@@ -24,7 +24,7 @@ public class App extends Application {
 	 */
 	private static Scene scene;
 	private static MainViewController controller;
-	private ClockClient cc;
+	//private ClockClient cc;
 	private Gui_IO gio;
 	private Clock clock;
 	private Timer tt;
@@ -44,8 +44,12 @@ public class App extends Application {
 		controller.setGui_IO(gio);
 		gio.clearAlarmTime();
 
-		cc = new ClockClient(serverIP, port, gio);
-		cc.start();
+		try {
+			new ClockClient(serverIP, port, gio);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		//cc.start();
 	}
 
 	/*

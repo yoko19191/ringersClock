@@ -4,6 +4,9 @@ import java.time.Instant;
 import java.util.ArrayList;
 
 import fi.utu.tech.ringersClock.UI.MainViewController;
+import fi.utu.tech.ringersClock.entities.Alarm;
+import fi.utu.tech.ringersClock.entities.CCMD;
+import fi.utu.tech.ringersClock.entities.ClientCmd;
 import fi.utu.tech.ringersClock.entities.WakeUpGroup;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -128,6 +131,8 @@ public class Gui_IO {
 	 */
 	public void AlarmAll(WakeUpGroup group) {
 		System.out.println("AlarmAll " + group.getName());
+		var cmd = new ClientCmd(CCMD.ALARM_ALL_CMD);
+		ClockClient.send(cmd);
 	}
 
 	/**
@@ -138,6 +143,8 @@ public class Gui_IO {
 	 */
 	public void CancelAlarm(WakeUpGroup group) {
 		System.out.println("CancelAll " + group.getName());
+		var cmd = new ClientCmd(CCMD.CANCEL_ALARM_CMD);
+		ClockClient.send(cmd);
 	}
 
 	/**
@@ -148,6 +155,9 @@ public class Gui_IO {
 	 */
 	public void createNewGroup(String name, Integer hour, Integer minutes, boolean norain, boolean temp) {
 		System.out.println("Create New Group pressed, name: " + name + " Wake-up time: " + hour + ":" + minutes + " Rain allowed: " + norain + " Temperature over 0 deg: " + temp);
+		var newGroup = new WakeUpGroup(name,hour,minutes,norain,temp);
+		var cmd = new ClientCmd(CCMD.CREATE_GROUP_CMD,newGroup);
+		ClockClient.send(cmd);
 	}
 
 	/**
@@ -159,6 +169,8 @@ public class Gui_IO {
 
 	public void joinGroup(WakeUpGroup group) {
 		System.out.println("Join Group pressed" + group.getName());
+		var cmd = new ClientCmd(CCMD.JOIN_GROUP_CMD,group);
+		ClockClient.send(cmd);
 	}
 	
 	/**
@@ -169,5 +181,7 @@ public class Gui_IO {
 	 */
 	public void resignGroup() {
 		System.out.println("Resign Group pressed");
+		var cmd = new ClientCmd(CCMD.RESIGN_GROUP_CMD);
+		ClockClient.send(cmd);
 	}
 }

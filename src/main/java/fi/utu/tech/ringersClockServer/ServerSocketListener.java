@@ -7,22 +7,25 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 public class ServerSocketListener extends Thread {
 
 	public static ServerSocketListener instance;
 	private ServerSocket serverSocket;
-
+	private Container container;
 	private String host;
 	private int port;
 
-	private ArrayList<ClientHandler> clientHandlers;
 
 	public ServerSocketListener(String host, int port) {
 		this.host = host;
 		this.port = port;
-		this.clientHandlers = new ArrayList<ClientHandler>();
+		this.container = new Container();
 		ServerSocketListener.instance = this;
+
 	}
 
 	@Override
@@ -36,14 +39,15 @@ public class ServerSocketListener extends Thread {
 		while(!serverSocket.isClosed()){
 			try{
 				Socket clientSocket = serverSocket.accept();
-				clientHandlers.add(new ClientHandler(clientSocket));
+				//new ClientHandler(clientSocket).start();
+				var newClientHandler = new ClientHandler(clientSocket);
+				Container.clientQueue.add(newClientHandler);
+				newClientHandler.start();
 			}catch(IOException e){
 				e.printStackTrace();
 			}//try-catch
 		}//while
 	}
-
-	//sender
 
 
 }

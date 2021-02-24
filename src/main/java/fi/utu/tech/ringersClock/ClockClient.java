@@ -24,19 +24,17 @@ public class ClockClient extends Thread {
 	private Thread thread;
 
 	private Socket server;
-	private InputStream iS; private ObjectInputStream oIn;
-	private OutputStream oS; private ObjectOutputStream oOut;
+	private InputStream iS;
+	private OutputStream oS;
+	private ObjectOutputStream oOut;
+	private ObjectInputStream oIn;
 
-	public ClockClient(String host, int port, Gui_IO gio) {
+	public ClockClient(String host, int port, Gui_IO gio) throws IOException {
 		this.host = host;
 		this.port = port;
 		this.gio = gio;
 		this.sh = new ServerHandler();
-		try {
-			this.server = new Socket(host,port);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		this.server = new Socket(host,port);
 		this.thread = new Thread(this);
 		this.thread.start();
 
@@ -48,11 +46,15 @@ public class ClockClient extends Thread {
 	public void run() {
 		System.out.println("Host name: " + host + " Port: " + port + " Gui_IO:" + gio.toString());
 		try{
-			iS = server.getInputStream(); oIn = new ObjectInputStream(iS);
-			oS = server.getOutputStream(); oOut = new ObjectOutputStream(oS);
+			iS = server.getInputStream();
+			oS = server.getOutputStream();
+			oOut = new ObjectOutputStream(oS);
+			oIn = new ObjectInputStream(iS);
+
 			while(server.isConnected()){
 				sh.handle(oIn.readObject());
 			}//while
+
 		}catch(IOException | ClassNotFoundException e){
 			System.err.println("Disconnected from server.");
 		}//try-catch
@@ -73,6 +75,7 @@ public class ClockClient extends Thread {
 
 	//sender
 	public static void send(ClientCmd<?> cmd){
+		//ClockClient.sendSerializable(cmd);
 		if(instance != null){
 			try{
 				instance.oOut.writeObject(cmd);
@@ -80,8 +83,12 @@ public class ClockClient extends Thread {
 			}catch(IOException e){
 				e.printStackTrace();
 			}//try-catch
+		}else{
+			System.err.println("Client instance not found, send data to server failed.");
 		}
 	}//sender
+
+
 
 	//process command from server
 	private class ServerHandler{

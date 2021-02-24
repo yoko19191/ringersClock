@@ -9,6 +9,10 @@ import java.io.ObjectOutputStream;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.UUID;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * Every WakeUpGroup in server has this service
@@ -17,16 +21,18 @@ import java.util.ArrayList;
  */
 public class WakeUpService extends Thread {
 
-	private WakeUpGroup group;
-	private ArrayList<ObjectOutputStream> clients;
+	private final WakeUpGroup group;
+
+	private BlockingQueue<ObjectOutputStream> memberQueue;
 
 	private boolean isConfirmAlarm = false;
 
 	public WakeUpService(WakeUpGroup group,ObjectOutputStream leaderOOut) {
 		super();
 		this.group = group;
-		this.clients = new ArrayList<ObjectOutputStream>(){};
-		clients.add(leaderOOut);
+		//Group leader's handler --> index 0
+		this.memberQueue = new ArrayBlockingQueue<ObjectOutputStream>(100);
+		this.memberQueue.add(leaderOOut);
 		this.start();
 	}
 
@@ -39,16 +45,20 @@ public class WakeUpService extends Thread {
 			try{
 				//If alarm has goes off or its happening
 				if(currentTime.compareTo(groupAlarm)>=0 && group.getAlarm().isWeatherAllowed(FMIWeatherService.getWeather())){
-					var confirmCmd = new ServerCmd<>(SCMD.CONFIRM_ALARM_CMD);
-					//Send confirm command to client
-					ClientHandler.sendServerCmdToClient(clients.get(0),confirmCmd);
+					var confirmCmd = new ServerCmd<>(SCMD.CONFIRM_ALARM_CMD,this.group);
+					var confirmMessage = new ServerCmd<>(SCMD.APPEND_TO_STATUS_CMD,"Confirm alarm all?");
+					//Send confirm command to leader client
+					ObjectOutputStream leader = memberQueue.take();
+					ClientHandler.send(confirmCmd,leader);
+					ClientHandler.send(confirmMessage, leader);
+					//clientHandlers.get(0).send(confirmCmd);
 					if(isConfirmAlarm){
 						var alarmCmd = new ServerCmd<>(SCMD.ALARM_USER_CMD);
 						var statusCmd = new ServerCmd<>(SCMD.APPEND_TO_STATUS_CMD,"Alarm goes off.");
 						//Send alarmCmd to every clients
-						for(ObjectOutputStream client : clients){
-							ClientHandler.sendServerCmdToClient(client,alarmCmd);
-							ClientHandler.sendServerCmdToClient(client,statusCmd);
+						for(ObjectOutputStream oOut:memberQueue){
+							ClientHandler.send(alarmCmd,oOut);
+							ClientHandler.send(statusCmd,oOut);
 						}
 					}//isConfirmAlarm
 				}//isAlarmGoesOff
@@ -64,30 +74,21 @@ public class WakeUpService extends Thread {
 		this.isConfirmAlarm = isConfirmAlarm;
 	}
 
-	//Add client
-	public synchronized boolean addClient(ObjectOutputStream memberOOut){
-		if(clients.size() >=1){
-			clients.add(memberOOut);
-			return true;
-		}else{
-			return false;
-		}
-	}
-
-	//Remove Client
-	public synchronized boolean removeClient(ObjectOutputStream memberOOut){
-		if(clients.contains(memberOOut)){
-			clients.remove(memberOOut);
-			return true;
-		}else{
-			System.err.println("Removed client not found!");
-			return false;
-		}
-	}
-
 	//get WakeUpGroup
 	public WakeUpGroup getGroup() {
 		return group;
+	}
+
+	public void addObjectOutputStream(ObjectOutputStream user){
+		this.memberQueue.add(user);
+	}
+
+	/**
+	 * todo: NullPointerException
+	 */
+	public void removeObjectOutputStream(ObjectOutputStream removeOut){
+		this.memberQueue.remove(removeOut);
+
 	}
 
 
